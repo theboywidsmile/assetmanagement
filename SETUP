@@ -1,0 +1,42 @@
+# 🛠️ Asset Management System
+
+A full-stack Asset Management System built with **Node.js**, **Express**, **Sequelize ORM**, and **PostgreSQL** for backend and database, using **Jade (Pug)** templating and **Bootstrap** for frontend.
+
+## 📦 Features
+
+- ✅ Company, Employee, Asset Category, Asset Masters
+- 📋 Track Asset Issuing, Returning, Scrapping
+- 🔄 Asset History (full lifecycle: issue → return → scrap)
+- 📊 Branch-wise Stock View with total values
+- 🔍 Filter by category, type, make, model
+- 🔐 Simple secure backend
+
+---
+
+## 🧱 Tech Stack
+
+| Category    | Technology     |
+|-------------|----------------|
+| Backend     | Node.js, Express.js |
+| ORM         | Sequelize       |
+| Database    | PostgreSQL      |
+| Frontend    | Pug (Jade), Bootstrap, DataTables.Net |
+| Tools       | Sequelize CLI, Nodemon |
+
+---
+
+## 🏗️ Installation
+
+git clone 
+cd asset-management-system
+npm install
+
+# Create database
+npx sequelize-cli db:create
+
+# Run migrations
+npx sequelize-cli db:migrate
+npx sequelize-cli db:seed:all
+
+# Run app
+npm start
