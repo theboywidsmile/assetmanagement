@@ -7,10 +7,13 @@ module.exports = (sequelize, DataTypes) => {
         foreignKey: "employeeId",
         as: "histories",
       });
-
       Employee.hasMany(models.Asset, {
         foreignKey: "employeeId",
         as: "assets",
+      });
+      Employee.belongsTo(models.Company, {
+        foreignKey: "companyId",
+        as: "company",
       });
     }
   }

@@ -11,6 +11,11 @@ module.exports = (sequelize, DataTypes) => {
   }
   AssetCategory.init(
     {
+      id: {
+        type: DataTypes.INTEGER,
+        primaryKey: true,
+        autoIncrement: true,
+      },
       name: DataTypes.STRING,
       description: DataTypes.STRING,
     },

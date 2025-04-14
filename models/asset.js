@@ -24,6 +24,11 @@ module.exports = (sequelize, DataTypes) => {
   }
   Asset.init(
     {
+      id: {
+        type: DataTypes.INTEGER,
+        primaryKey: true,
+        autoIncrement: true,
+      },
       name: DataTypes.STRING,
       serialNumber: DataTypes.STRING,
       make: DataTypes.STRING,

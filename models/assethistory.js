@@ -15,6 +15,11 @@ module.exports = (sequelize, DataTypes) => {
   }
   AssetHistory.init(
     {
+      id: {
+        type: DataTypes.INTEGER,
+        primaryKey: true,
+        autoIncrement: true,
+      },
       assetId: DataTypes.INTEGER,
       employeeId: DataTypes.INTEGER,
       action: DataTypes.STRING,

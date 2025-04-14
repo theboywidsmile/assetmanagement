@@ -6,6 +6,11 @@ module.exports = (sequelize, DataTypes) => {
   }
   AssetIssue.init(
     {
+      id: {
+        type: DataTypes.INTEGER,
+        primaryKey: true,
+        autoIncrement: true,
+      },
       assetId: DataTypes.INTEGER,
       employeeId: DataTypes.INTEGER,
       issuedAt: DataTypes.DATE,
