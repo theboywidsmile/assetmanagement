@@ -1,0 +1,27 @@
+extends ../layout
+
+block content
+  header.d-flex.justify-content-between.mb-1
+    div 
+        h4.text-uppercase  Company Master
+    a.btn.btn-primary(href='/companies/add') +
+
+  table.table.table-bordered.datatable
+    thead
+      tr.table-light
+        th ID
+        th Name
+        th Address
+        th Phone
+        th Email
+        th Actions
+    tbody
+      each company in companies
+        tr
+          td= company.id
+          td= company.name
+          td= company.address
+          td= company.phone
+          td= company.email
+          td
+            a.btn.btn-sm.btn-warning(href=`/companies/edit/${company.id}`) Edit
