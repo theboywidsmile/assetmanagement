@@ -16,10 +16,9 @@ exports.getReturnedAssets = async () => {
         { model: Employee, as: "employee" },
       ],
     });
-    console.log("Returned Assets:", JSON.stringify(returnedAssets, null, 2)); // Log returned assets
     return returnedAssets;
   } catch (error) {
-    console.error("Error fetching returned assets:", error); // Log the error
+    console.error("Error fetching returned assets:", error);
     throw error;
   }
 };
