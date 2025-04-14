@@ -1,7 +1,11 @@
 const { Company } = require("../models");
 
 exports.getCompanies = async () => {
-  return await Company.findAll();
+  const companies = await Company.findAll();
+  companies.forEach((company, index) => {
+    company.s_no = index + 1;
+  });
+  return companies;
 };
 
 exports.addOrUpdateCompany = async (companyData) => {
@@ -14,7 +18,7 @@ exports.addOrUpdateCompany = async (companyData) => {
 
 exports.getCompanyById = async (id) => {
   try {
-    return await Company.findByPk(id); // Adjust based on your ORM and model structure
+    return await Company.findByPk(id);
   } catch (error) {
     throw new Error("Error fetching company by ID");
   }

@@ -6,18 +6,18 @@ block content
         h4.text-uppercase Scrap Asset
     button.btn.btn-primary(data-bs-toggle="modal" data-bs-target="#addScrapModal") + 
 
-  table#scrapTable.table.table-bordered.table-striped
-    thead
+  table#scrapTable.table.table-bordered.align-middle
+    thead.text-uppercase.table-secondary
       tr
-        th ID
+        th(width=100).text-center S.NO
         th Asset Name
         th Scrap Reason
-        th Date
+        th(width=150) Date
     tbody
       if scrappedAssets.length
         each scrap in scrappedAssets
           tr
-            td= scrap.id
+            td.text-center= scrap.s_no
             td= scrap.asset ? scrap.asset.name : "N/A"
             td= scrap.reason || "N/A"
             td= scrap.date ? new Date(scrap.date).toLocaleDateString() : "N/A"

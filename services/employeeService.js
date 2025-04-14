@@ -4,10 +4,15 @@ exports.getEmployees = async (search, status) => {
   const where = {};
   if (status) where.status = status;
   if (search) where.name = { [require("sequelize").Op.iLike]: `%${search}%` };
-  return await Employee.findAll({
+
+  const employees = await Employee.findAll({
     where,
     include: [{ model: Company, as: "company" }],
   });
+  employees.forEach((employee, index) => {
+    employee.s_no = index + 1;
+  });
+  return employees;
 };
 
 exports.addEmployee = async (employeeData) => {

@@ -5,18 +5,18 @@ block content
     div 
         h4.text-uppercase Issued Asset
     button.btn.btn-primary(type='button', data-bs-toggle='modal', data-bs-target='#issueModal', disabled=assets.length === 0) + Issue Asset
-  table#issueTable.table.table-bordered.table-striped
-    thead
+  table.table.table-bordered.datatable.align-middle#issueTable 
+    thead.table-secondary.text-uppercase
       tr
-        th ID
+        td(width=100).text-center S.no
         th Asset Name
         th Issued To
-        th Date
+        td(width=150) Date
     tbody
       if issuedAssets && issuedAssets.length > 0
         each issued in issuedAssets
           tr.align-middle
-            td= issued.id
+            td.text-center= issued.s_no
             td= issued.name ? issued.name : "N/A"
             td= issued.employee ? issued.employee.name : "N/A"
             td(width=150)= issued.createdAt ? new Date(issued.createdAt).toLocaleDateString() : "N/A"

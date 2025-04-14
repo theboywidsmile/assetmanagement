@@ -6,10 +6,10 @@ block content
         h4.text-uppercase Stock View
     h5.text-end.text-uppercase.text-success Total Assets: #{stock.length}
 
-  table#stockTable.table.table-bordered.table-striped
-    thead
+  table#stockTable.table.table-bordered.datatable.align-middle
+    thead.table-secondary.text-uppercase
       tr
-        th ID
+        th(width=100).text-center S.no
         th Asset Name
         th Make
         th Model
@@ -20,22 +20,22 @@ block content
       if stock && stock.length > 0
         each asset in stock
           tr
-            td= asset.id
+            td.text-center= asset.id
             td= asset.name
             td= asset.make
             td= asset.model
             td.text-center= asset.value
             td= asset.status
             td= asset.category ? asset.category.name : "N/A"
-          tr.fs-5
-            td(colspan="3")
-            td.fw-semibold.table-success.text-uppercase.text-success= "Total Value"  
-            td.text-center.fw-bold.table-success.text-success= stock.reduce((acc, asset) => acc + asset.value, 0)
-            td(colspan="2") 
+         
       else 
         tr
           td(colspan='10', class='text-center') No assets found.
-
+      tr.fs-5
+          td(colspan="3")
+          td.fw-semibold.table-success.text-uppercase.text-success= "Total Value"  
+          td.text-center.fw-bold.table-success.text-success= stock.reduce((acc, asset) => acc + asset.value, 0)
+          td(colspan="2") 
   script.
     $(document).ready(function() {
       $('#stockTable').DataTable({

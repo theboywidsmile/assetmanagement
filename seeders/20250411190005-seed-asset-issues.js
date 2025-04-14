@@ -15,7 +15,7 @@ module.exports = {
       },
       {
         assetId: 1, // MacBook Pro 16
-        employeeId: null,
+        employeeId: 2,
         issuedAt: new Date(),
         returnAt: new Date(),
         status: "returned",

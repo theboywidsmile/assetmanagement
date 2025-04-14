@@ -9,13 +9,15 @@ exports.getEmployees = async () => {
 };
 
 exports.getIssuedAssets = async () => {
-  return await Asset.findAll({
+  const issuedAssets = await Asset.findAll({
     where: { status: "issued" },
-    include: [
-      { model: Employee, as: "employee" },
-      { model: AssetCategory, as: "category" },
-    ],
+    include: [{ model: Employee, as: "employee" }],
   });
+
+  issuedAssets.forEach((asset, index) => {
+    asset.s_no = index + 1;
+  });
+  return issuedAssets;
 };
 
 exports.issueAsset = async (assetId, employeeId) => {

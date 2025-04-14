@@ -13,27 +13,27 @@ block content
         button.btn.btn-secondary(type='submit') Filter
         button.btn.btn-primary(type='button', data-bs-toggle='modal', data-bs-target='#employeeModal', data-mode='add') +
 
-  table.table.table-bordered.table-striped.datatable
-    thead
+  table.table.table-bordered.datatable.align-middle
+    thead.table-secondary.text-uppercase
       tr
-        th ID
+        th(width=100).text-center S.NO
         th Name
         th Email
         th Phone
         th Status
         th Company
-        th Actions
+        th(width=100).text-center Actions
     tbody
       each employee in employees
         tr.align-middle
-          td= employee.id
+          th(width=100).text-center= employee.s_no
           td= employee.name
           td= employee.email
           td= employee.phone
           td
             span.text-uppercase.badge(class=employee.status === 'active' ? 'bg-success' : 'bg-secondary')= employee.status
           td= employee.company && employee.company.name ? employee.company.name : "N/A"
-          td
+          th(width=100).text-center
             button.btn.btn-sm.btn-warning(
               type='button',
               data-bs-toggle='modal',

@@ -6,24 +6,24 @@ block content
         h4.text-uppercase  Company Master
     a.btn.btn-primary(type='button', data-bs-toggle='modal', data-bs-target='#companyModal', data-mode='add') +
 
-  table.table.table-bordered.datatable
-    thead
+  table.table.table-bordered.datatable.align-middle
+    thead.table-secondary.text-uppercase
       tr.table-light
-        th ID
+        th(width=100).text-center S.NO
         th Name
         th Address
         th Phone
         th Email
-        th Actions
+        th(width=100).text-center Actions
     tbody
       each company in companies
         tr
-          td= company.id
+          td.text-center= company.s_no
           td= company.name
           td= company.address
           td= company.phone
           td= company.email
-          td
+          td.text-center
             button.btn.btn-sm.btn-warning(
               type='button',
               data-bs-toggle='modal',

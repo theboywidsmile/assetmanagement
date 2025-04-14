@@ -5,7 +5,7 @@ block content
     div 
         h4.text-uppercase Asset Master
     form.d-flex(method='GET', action='/assets')
-      input.form-control.me-2(type='search', name='search', placeholder='Search by name/make/model')
+      input.form-control.me-2.w-100(type='search', name='search', placeholder='Search by name/make/model')
       select.form-select(name='type')
         option(value='') All Categories
         each category in categories
@@ -14,10 +14,10 @@ block content
         button.btn.btn-primary.ms-2(type='submit') Filter
         button.btn.btn-success.w-100(type='button', data-bs-toggle='modal', data-bs-target='#assetModal', data-mode='add') +
 
-  table.table.table-bordered.table-striped.datatable
-    thead
+  table.table.table-bordered.datatable.align-middle
+    thead.table-secondary.text-uppercase
       tr
-        th ID
+        th(width=50).text-center S.No
         th Name
         th Serial Number
         th Make
@@ -26,11 +26,11 @@ block content
         th Status
         th Category
         th Employee
-        th Actions
+        th.text-center Actions
     tbody
       each asset in assets
         tr
-          td= asset.id
+          td.text-center= asset.s_no
           td= asset.name
           td= asset.serialNumber
           td= asset.make
@@ -39,8 +39,8 @@ block content
           td= asset.status
           td= asset.category ? asset.category.name : "N/A"
           td= asset.employee ? asset.employee.name : "N/A"
-          td
-            button.btn.btn-sm.btn-warning(
+          td.text-center
+            button.btn.btn-sm.btn-secondary(
               type='button',
               data-bs-toggle='modal',
               data-bs-target='#assetModal',

@@ -16,6 +16,9 @@ exports.getReturnedAssets = async () => {
         { model: Employee, as: "employee" },
       ],
     });
+    returnedAssets.forEach((history, index) => {
+      history.s_no = index + 1;
+    });
     return returnedAssets;
   } catch (error) {
     console.error("Error fetching returned assets:", error);

@@ -2,17 +2,20 @@ const { Asset, AssetCategory, Employee } = require("../models");
 
 exports.getAssets = async (search, categoryId) => {
   try {
-    const where = { status: { [require("sequelize").Op.ne]: "scrapped" } }; // Exclude scrapped assets
-    if (categoryId) where.categoryId = categoryId; // Filter by category
-    if (search) where.name = { [require("sequelize").Op.iLike]: `%${search}%` }; // Filter by name
-
-    return await Asset.findAll({
+    const where = { status: { [require("sequelize").Op.ne]: "scrapped" } };
+    if (categoryId) where.categoryId = categoryId;
+    if (search) where.name = { [require("sequelize").Op.iLike]: `%${search}%` };
+    const assets = await Asset.findAll({
       where,
       include: [
-        { model: AssetCategory, as: "category" }, // Include category association
-        { model: Employee, as: "employee" }, // Include employee association
+        { model: AssetCategory, as: "category" },
+        { model: Employee, as: "employee" },
       ],
     });
+    assets.forEach((asset, index) => {
+      asset.s_no = index + 1;
+    });
+    return assets;
   } catch (error) {
     console.error("Error fetching assets from database:", error);
     throw error;

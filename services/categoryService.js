@@ -1,7 +1,11 @@
 const { AssetCategory } = require("../models");
 
 exports.getCategories = async () => {
-  return await AssetCategory.findAll();
+  const categories = await AssetCategory.findAll();
+  categories.forEach((category, index) => {
+    category.s_no = index + 1;
+  });
+  return categories;
 };
 
 exports.addCategory = async (categoryData) => {

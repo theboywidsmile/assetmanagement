@@ -6,18 +6,18 @@ block content
         h4.text-uppercase Returned Asset
     button.btn.btn-primary(type='button', data-bs-toggle='modal', data-bs-target='#returnModal',disabled=issuedAssets.length === 0) + Return Asset
 
-  table#returnTable.table.table-bordered.table-striped
-    thead
+  table#returnTable.table.table-bordered.align-middle
+    thead.text-uppercase.table-secondary
       tr
-        th ID
+        th(width=100).text-center S.no
         th Asset Name
         th Returned By
         th Reason
-        th Date
+        th(width=150) Date
     tbody
       each returned in returnedAssets
         tr
-          td= returned.id
+          td.text-center= returned.s_no
           td= returned.asset ? returned.asset.name : "N/A"
           td= returned.employee ? returned.employee.name : "N/A"
           td= returned.description

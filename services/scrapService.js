@@ -11,11 +11,15 @@ exports.getScrappableAssets = async () => {
 
 exports.getScrappedAssets = async () => {
   try {
-    return await AssetHistory.findAll({
+    const scrappedAssets = await AssetHistory.findAll({
       where: { action: "scrapped" },
-      include: [{ model: Asset, as: "asset" }], // Ensure the Asset association is included
-      attributes: ["id", "reason", "date", "assetId"], // Explicitly fetch required fields
+      include: [{ model: Asset, as: "asset" }],
     });
+
+    scrappedAssets.forEach((history, index) => {
+      history.s_no = index + 1;
+    });
+    return scrappedAssets;
   } catch (error) {
     console.error("Error fetching scrapped assets:", error);
     throw error;
@@ -28,8 +32,8 @@ exports.scrapAsset = async (assetId) => {
     await AssetHistory.create({
       assetId,
       action: "scrapped",
-      reason: "Marked as obsolete", // Default reason
-      date: new Date(), // Current date
+      reason: "Marked as obsolete",
+      date: new Date(),
     });
   } catch (error) {
     console.error("Error scrapping asset:", error);
@@ -43,8 +47,8 @@ exports.addScrap = async (assetId, reason) => {
     await AssetHistory.create({
       assetId,
       action: "scrapped",
-      reason, // Save the provided reason
-      date: new Date(), // Save the current date
+      reason,
+      date: new Date(),
     });
   } catch (error) {
     console.error("Error adding scrapped asset:", error);

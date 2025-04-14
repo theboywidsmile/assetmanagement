@@ -6,10 +6,10 @@ block content
         h4.text-uppercase Asset Category Master
     a.btn.btn-primary(type='button', data-bs-toggle='modal', data-bs-target='#categoryModal', data-mode='add') +
 
-  table.table.table-bordered.table-striped.datatable
-    thead
+  table.table.table-bordered.datatable.align-middle
+    thead.table-secondary.text-uppercase
       tr
-        th ID
+        th(width=100).text-center S.NO
         th Name
         th Description
         th(width=100).text-center Actions
@@ -17,7 +17,7 @@ block content
       if categories && categories.length > 0
         each category in categories
           tr.align-middle
-            td= category.id
+            td.text-center= category.s_no
             td= category.name
             td= category.description
             td.text-center 
