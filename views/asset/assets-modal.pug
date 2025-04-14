@@ -1,0 +1,38 @@
+.modal.fade#assetModal(tabindex='-1', aria-labelledby='assetModalLabel', aria-hidden='true')
+  .modal-dialog.modal-dialog-centered
+    .modal-content
+      .modal-header
+        h5.modal-title.text-uppercase#assetModalLabel Asset Form
+        button.btn-close(type='button', data-bs-dismiss='modal', aria-label='Close')
+      form(method='POST', id='assetForm')
+        .modal-body
+          input(type='hidden', name='id', id='assetId')
+          .mb-3
+            label.form-label(for='assetName') Name
+            input.form-control(type='text', name='name', id='assetName', required)
+          .mb-3
+            label.form-label(for='assetSerialNumber') Serial Number
+            input.form-control(type='text', name='serialNumber', id='assetSerialNumber', required)
+          .mb-3
+            label.form-label(for='assetMake') Make
+            input.form-control(type='text', name='make', id='assetMake', required)
+          .mb-3
+            label.form-label(for='assetModel') Model
+            input.form-control(type='text', name='model', id='assetModel', required)
+          .mb-3
+            label.form-label(for='assetValue') Value
+            input.form-control(type='number', name='value', id='assetValue', step='0.01', required)
+          .mb-3
+            label.form-label(for='assetStatus') Status
+            select.form-select(name='status', id='assetStatus', required)
+              option(value='in_stock') In Stock
+              option(value='issued') Issued
+              option(value='scrapped') Scrapped
+          .mb-3
+            label.form-label(for='assetCategory') Category
+            select.form-select(name='categoryId', id='assetCategory', required)
+              each category in categories
+                option(value=category.id)= category.name
+        .modal-footer
+          button.btn.btn-secondary(type='button', data-bs-dismiss='modal') Cancel
+          button.btn.btn-primary(type='submit') Save

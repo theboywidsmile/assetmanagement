@@ -4,7 +4,7 @@ block content
   header.d-flex.justify-content-between.mb-1
     div 
         h4.text-uppercase  Company Master
-    a.btn.btn-primary(href='/companies/add') +
+    a.btn.btn-primary(type='button', data-bs-toggle='modal', data-bs-target='#companyModal', data-mode='add') +
 
   table.table.table-bordered.datatable
     thead
@@ -24,4 +24,43 @@ block content
           td= company.phone
           td= company.email
           td
-            a.btn.btn-sm.btn-warning(href=`/companies/edit/${company.id}`) Edit
+            button.btn.btn-sm.btn-warning(
+              type='button',
+              data-bs-toggle='modal',
+              data-bs-target='#companyModal',
+              data-mode='edit',
+              data-id=company.id,
+              data-name=company.name,
+              data-address=company.address,
+              data-phone=company.phone,
+              data-email=company.email
+            ) Edit
+
+  include ./companies-modal
+
+  script.
+    const companyModal = document.getElementById('companyModal');
+    const companyForm = document.getElementById('companyForm');
+
+    companyModal.addEventListener('show.bs.modal', function (event) {
+      const button = event.relatedTarget;
+      const mode = button.getAttribute('data-mode');
+
+      const id = button.getAttribute('data-id') || '';
+      const name = button.getAttribute('data-name') || '';
+      const address = button.getAttribute('data-address') || '';
+      const phone = button.getAttribute('data-phone') || '';
+      const email = button.getAttribute('data-email') || '';
+
+      if (mode === 'edit') {
+        companyForm.action = `/companies/edit/${id}`;
+        document.getElementById('companyId').value = id;
+        document.getElementById('companyName').value = name;
+        document.getElementById('companyAddress').value = address;
+        document.getElementById('companyPhone').value = phone;
+        document.getElementById('companyEmail').value = email;
+      } else {
+        companyForm.action = '/companies/add';
+        companyForm.reset();
+      }
+    });

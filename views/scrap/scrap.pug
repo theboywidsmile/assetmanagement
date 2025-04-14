@@ -1,0 +1,50 @@
+extends ../layout
+
+block content
+  header.d-flex.justify-content-between.mb-1
+    div 
+        h4.text-uppercase Scrap Asset
+    button.btn.btn-primary(data-bs-toggle="modal" data-bs-target="#addScrapModal") + 
+
+  table#scrapTable.table.table-bordered.table-striped
+    thead
+      tr
+        th ID
+        th Asset Name
+        th Scrap Reason
+        th Date
+    tbody
+      if scrappedAssets.length
+        each scrap in scrappedAssets
+          tr
+            td= scrap.id
+            td= scrap.asset ? scrap.asset.name : "N/A"
+            td= scrap.reason || "N/A"
+            td= scrap.date ? new Date(scrap.date).toLocaleDateString() : "N/A"
+      else
+        tr
+          td(colspan="4").text-center No scrapped assets found.
+
+  .modal.fade#addScrapModal(tabindex="-1" aria-labelledby="addScrapModalLabel" aria-hidden="true")
+    .modal-dialog.modal-dialog-centered
+      .modal-content
+        .modal-header
+          h5.modal-title#addScrapModalLabel Add Scrap
+          button.btn-close(type="button" data-bs-dismiss="modal" aria-label="Close")
+        .modal-body
+          form(method="POST", action="/scrap/add")
+            .mb-3
+              label.form-label(for="assetId") Select Asset
+              select.form-select(name="assetId", required)
+                option(value="") -- Select an Asset --
+                each asset in assets
+                  option(value=asset.id)= asset.name
+            .mb-3
+              label.form-label(for="scrapReason") Scrap Reason
+              textarea.form-control(name="scrapReason", rows="3", required)
+            .d-flex.justify-content-end
+              button.btn.btn-primary(type="submit") Add Scrap
+  script.
+    $(document).ready(function() {
+      $('#scrapTable').DataTable();
+    });

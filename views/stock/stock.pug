@@ -1,0 +1,53 @@
+extends ../layout
+
+block content
+  header.d-flex.justify-content-between.mb-1.align-items-center
+    div 
+        h4.text-uppercase Stock View
+    h5.text-end.text-uppercase.text-success Total Assets: #{stock.length}
+
+  table#stockTable.table.table-bordered.table-striped
+    thead
+      tr
+        th ID
+        th Asset Name
+        th Make
+        th Model
+        th Value
+        th Status
+        th Category
+    tbody
+      if stock && stock.length > 0
+        each asset in stock
+          tr
+            td= asset.id
+            td= asset.name
+            td= asset.make
+            td= asset.model
+            td.text-center= asset.value
+            td= asset.status
+            td= asset.category ? asset.category.name : "N/A"
+          tr.fs-5
+            td(colspan="3")
+            td.fw-semibold.table-success.text-uppercase.text-success= "Total Value"  
+            td.text-center.fw-bold.table-success.text-success= stock.reduce((acc, asset) => acc + asset.value, 0)
+            td(colspan="2") 
+      else 
+        tr
+          td(colspan='10', class='text-center') No assets found.
+
+  script.
+    $(document).ready(function() {
+      $('#stockTable').DataTable({
+        paging: true,
+        searching: true,
+        ordering: true,
+        info: true,
+        lengthChange: true,
+        pageLength: 10,
+        language: {
+          search: "Filter records:",
+          lengthMenu: "Show _MENU_ entries",
+        },
+      });
+    });

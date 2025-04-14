@@ -12,24 +12,30 @@ html
           span.navbar-toggler-icon
         div#navbarNav.collapse.navbar-collapse
           ul.navbar-nav
-            li.nav-item
-              a.nav-link.active(href="/categories") Asset Category Master
-            li.nav-item
-              a.nav-link(href="/employees") Employee Master
-            li.nav-item
-              a.nav-link(href="/assets") Asset Master
-            li.nav-item
-              a.nav-link(href="/stock") Stock View
-            li.nav-item
-              a.nav-link(href="/issue") Issue Asset
-            li.nav-item
-              a.nav-link(href="/return") Return Asset
-            li.nav-item
-              a.nav-link(href="/scrap") Scrap Asset
+            li.nav-item.dropdown
+                a.nav-link.dropdown-toggle(href="#", id="mastersDropdown", role="button", data-bs-toggle="dropdown", aria-expanded="false") Masters
+                ul.dropdown-menu(aria-labelledby="mastersDropdown")
+                  li
+                    a.dropdown-item(href="/companies") Companies
+                  li
+                    a.dropdown-item(href="/employees") Employees
+                  li
+                    a.dropdown-item(href="/categories") Asset Categories
+                  li
+                    a.dropdown-item(href="/assets") Assets
+            li.nav-item.dropdown 
+              a.nav-link.dropdown-toggle(href="#", id="transactionsDropdown", role="button", data-bs-toggle="dropdown", aria-expanded="false") Assets Transactions
+              ul.dropdown-menu(aria-labelledby="transactionsDropdown")
+                li
+                  a.dropdown-item(href="/issue") Issue
+                li
+                  a.dropdown-item(href="/return") Return
+                li
+                  a.dropdown-item(href="/scrap") Scrap 
             li.nav-item
               a.nav-link(href="/history") Asset History
             li.nav-item
-              a.nav-link(href="/companies") Company Master
+              a.nav-link(href="/stock") Stock View
     div.container.mt-4
       block content
     script(src="https://code.jquery.com/jquery-3.6.0.min.js")

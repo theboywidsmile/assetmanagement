@@ -1,0 +1,24 @@
+.modal.fade#companyModal(tabindex='-1', aria-labelledby='companyModalLabel', aria-hidden='true')
+  .modal-dialog.modal-dialog-centered
+    .modal-content
+      .modal-header
+        h5.modal-title.text-uppercase#companyModalLabel Company Form
+        button.btn-close(type='button', data-bs-dismiss='modal', aria-label='Close')
+      form(method='POST', id='companyForm')
+        .modal-body
+          input(type='hidden', name='id', id='companyId')
+          .mb-3
+            label.form-label(for='companyName') Name
+            input.form-control(type='text', name='name', id='companyName', required)
+          .mb-3
+            label.form-label(for='companyAddress') Address
+            textarea.form-control(name='address', id='companyAddress', rows='3', required)
+          .mb-3
+            label.form-label(for='companyPhone') Phone
+            input.form-control(type='text', name='phone', id='companyPhone', required)
+          .mb-3
+            label.form-label(for='companyEmail') Email
+            input.form-control(type='email', name='email', id='companyEmail', required)
+        .modal-footer
+          button.btn.btn-secondary(type='button', data-bs-dismiss='modal') Cancel
+          button.btn.btn-primary(type='submit') Save

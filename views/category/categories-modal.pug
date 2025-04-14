@@ -1,0 +1,18 @@
+.modal.fade#categoryModal(tabindex='-1', aria-labelledby='categoryModalLabel', aria-hidden='true')
+  .modal-dialog.modal-dialog-centered
+    .modal-content
+      .modal-header
+        h5.modal-title.text-uppercase#categoryModalLabel Category Form
+        button.btn-close(type='button', data-bs-dismiss='modal', aria-label='Close')
+      form(method='POST', id='categoryForm')
+        .modal-body
+          input(type='hidden', name='id', id='catId')
+          .mb-3
+            label.form-label(for='catName') Name
+            input.form-control(type='text', name='name', id='catName', required)
+          .mb-3
+            label.form-label(for='catDescription') Description
+            textarea.form-control(name='description', id='catDescription', rows='3', required)
+        .modal-footer
+          button.btn.btn-secondary(type='button', data-bs-dismiss='modal') Cancel
+          button.btn.btn-primary(type='submit') Save

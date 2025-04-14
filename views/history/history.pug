@@ -1,0 +1,29 @@
+extends ../layout
+
+block content
+  h4.text-uppercase Asset History
+  table#historyTable(class="table table-striped table-bordered display")
+    thead
+      tr
+        th ID
+        th Asset Name
+        th Action
+        th Description
+        th Date
+    tbody
+      each record in history
+        tr
+          td= record.id
+          td= record.asset ? record.asset.name : "N/A"
+          td= record.action
+          td= record.description || "No description available" 
+          td= record.actionDate || "No date provided" 
+  script.
+    $(document).ready(function() {
+      $('#historyTable').DataTable({
+        responsive: true, // Enable responsive design
+        paging: true, // Enable pagination
+        searching: true, // Enable search functionality
+        ordering: true // Enable column sorting
+      });
+    });

@@ -1,0 +1,80 @@
+extends ../layout
+
+block content
+  header.row.mb-1.align-items-center.mx-0
+    h4.col-6.px-0.text-uppercase Employee Master
+    form.col-6.px-0.d-flex.align-items-center.gap-2(method='GET', action='/employees')
+      input.form-control(type='search', name='search', placeholder='Search by name/email')
+      select.form-select(name='status')
+        option(value='') All
+        option(value='active') Active
+        option(value='inactive') Inactive
+      div.btn-group.w-100
+        button.btn.btn-secondary(type='submit') Filter
+        button.btn.btn-primary(type='button', data-bs-toggle='modal', data-bs-target='#employeeModal', data-mode='add') +
+
+  table.table.table-bordered.table-striped.datatable
+    thead
+      tr
+        th ID
+        th Name
+        th Email
+        th Phone
+        th Status
+        th Company
+        th Actions
+    tbody
+      each employee in employees
+        tr.align-middle
+          td= employee.id
+          td= employee.name
+          td= employee.email
+          td= employee.phone
+          td
+            span.text-uppercase.badge(class=employee.status === 'active' ? 'bg-success' : 'bg-secondary')= employee.status
+          td= employee.company && employee.company.name ? employee.company.name : "N/A"
+          td
+            button.btn.btn-sm.btn-warning(
+              type='button',
+              data-bs-toggle='modal',
+              data-bs-target='#employeeModal',
+              data-mode='edit',
+              data-id=employee.id,
+              data-name=employee.name,
+              data-email=employee.email,
+              data-phone=employee.phone,
+              data-status=employee.status,
+              data-companyid=employee.companyId
+            ) Edit
+
+  // 👇 Include modal here
+  include ./employees-modal
+
+  script.
+    const modal = document.getElementById('employeeModal');
+    const form = document.getElementById('employeeForm');
+
+    modal.addEventListener('show.bs.modal', function (event) {
+      const button = event.relatedTarget;
+      const mode = button.getAttribute('data-mode');
+
+      const id = button.getAttribute('data-id') || '';
+      const name = button.getAttribute('data-name') || '';
+      const email = button.getAttribute('data-email') || '';
+      const phone = button.getAttribute('data-phone') || '';
+      const status = button.getAttribute('data-status') || 'active';
+      const companyId = button.getAttribute('data-companyid') || '';
+
+      if (mode === 'edit') {
+        form.action = `/employees/edit/${id}`;
+        document.getElementById('empId').value = id;
+        document.getElementById('empName').value = name;
+        document.getElementById('empEmail').value = email;
+        document.getElementById('empPhone').value = phone;
+        document.getElementById('empStatus').value = status;
+        document.getElementById('empCompany').value = companyId;
+      } else {
+        form.action = '/employees/add';
+        form.reset();
+      }
+    });

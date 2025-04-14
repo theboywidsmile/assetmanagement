@@ -1,0 +1,23 @@
+.modal.fade#issueModal(tabindex='-1', aria-labelledby='issueModalLabel', aria-hidden='true')
+  .modal-dialog.modal-dialog-centered
+    .modal-content
+      .modal-header
+        h5.modal-title.text-uppercase#issueModalLabel Issue Asset
+        button.btn-close(type='button', data-bs-dismiss='modal', aria-label='Close')
+      form(method='POST', action='/issue')
+        .modal-body
+          .mb-3
+            label.form-label(for='assetId') Select Asset
+            select.form-select(name='assetId', id='assetId', required)
+              option(value='') -- Select an Asset --
+              each asset in assets
+                option(value=asset.id)= asset.name
+          .mb-3
+            label.form-label(for='employeeId') Select Employee
+            select.form-select(name='employeeId', id='employeeId', required)
+              option(value='') -- Select an Employee --
+              each employee in employees
+                option(value=employee.id)= employee.name
+        .modal-footer
+          button.btn.btn-secondary(type='button', data-bs-dismiss='modal') Cancel
+          button.btn.btn-primary(type='submit') Issue Asset

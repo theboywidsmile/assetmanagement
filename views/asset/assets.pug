@@ -1,0 +1,94 @@
+extends ../layout
+
+block content
+  header.d-flex.justify-content-between.mb-1
+    div 
+        h4.text-uppercase Asset Master
+    form.d-flex(method='GET', action='/assets')
+      input.form-control.me-2(type='search', name='search', placeholder='Search by name/make/model')
+      select.form-select(name='type')
+        option(value='') All Categories
+        each category in categories
+          option(value=category.id)= category.name
+      div.btn-group.w-100
+        button.btn.btn-primary.ms-2(type='submit') Filter
+        button.btn.btn-success.w-100(type='button', data-bs-toggle='modal', data-bs-target='#assetModal', data-mode='add') +
+
+  table.table.table-bordered.table-striped.datatable
+    thead
+      tr
+        th ID
+        th Name
+        th Serial Number
+        th Make
+        th Model
+        th Value
+        th Status
+        th Category
+        th Employee
+        th Actions
+    tbody
+      each asset in assets
+        tr
+          td= asset.id
+          td= asset.name
+          td= asset.serialNumber
+          td= asset.make
+          td= asset.model
+          td= asset.value
+          td= asset.status
+          td= asset.category ? asset.category.name : "N/A"
+          td= asset.employee ? asset.employee.name : "N/A"
+          td
+            button.btn.btn-sm.btn-warning(
+              type='button',
+              data-bs-toggle='modal',
+              data-bs-target='#assetModal',
+              data-mode='edit',
+              data-id=asset.id,
+              data-name=asset.name,
+              data-serialnumber=asset.serialNumber,
+              data-make=asset.make,
+              data-model=asset.model,
+              data-value=asset.value,
+              data-status=asset.status,
+              data-categoryid=asset.categoryId,
+              data-employeeid=asset.employeeId
+            ) Edit
+
+  include ./assets-modal
+
+  script.
+    const assetModal = document.getElementById('assetModal');
+    const assetForm = document.getElementById('assetForm');
+
+    assetModal.addEventListener('show.bs.modal', function (event) {
+      const button = event.relatedTarget;
+      const mode = button.getAttribute('data-mode');
+
+      const id = button.getAttribute('data-id') || '';
+      const name = button.getAttribute('data-name') || '';
+      const serialNumber = button.getAttribute('data-serialnumber') || '';
+      const make = button.getAttribute('data-make') || '';
+      const model = button.getAttribute('data-model') || '';
+      const value = button.getAttribute('data-value') || '';
+      const status = button.getAttribute('data-status') || 'in_stock';
+      const categoryId = button.getAttribute('data-categoryid') || '';
+      const employeeId = button.getAttribute('data-employeeid') || '';
+
+      if (mode === 'edit') {
+        assetForm.action = `/assets/edit/${id}`;
+        document.getElementById('assetId').value = id;
+        document.getElementById('assetName').value = name;
+        document.getElementById('assetSerialNumber').value = serialNumber;
+        document.getElementById('assetMake').value = make;
+        document.getElementById('assetModel').value = model;
+        document.getElementById('assetValue').value = value;
+        document.getElementById('assetStatus').value = status;
+        document.getElementById('assetCategory').value = categoryId;
+        document.getElementById('assetEmployee').value = employeeId;
+      } else {
+        assetForm.action = '/assets/add';
+        assetForm.reset();
+      }
+    });

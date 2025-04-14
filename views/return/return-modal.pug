@@ -1,0 +1,20 @@
+.modal.fade#returnModal(tabindex='-1', aria-labelledby='returnModalLabel', aria-hidden='true')
+  .modal-dialog.modal-dialog-centered
+    .modal-content
+      .modal-header
+        h5.modal-title.text-uppercase#returnModalLabel Return Asset
+        button.btn-close(type='button', data-bs-dismiss='modal', aria-label='Close')
+      form(method='POST', action='/return')
+        .modal-body
+          .mb-3
+            label.form-label(for='assetId') Select Asset
+            select.form-select(name='assetId', id='assetId', required)
+              option(value='') -- Select an Asset --
+              each asset in issuedAssets
+                option(value=asset.id)= asset.name
+          .mb-3
+            label.form-label(for='reason') Return Reason
+            textarea.form-control(name='reason', id='reason', rows='3', required)
+        .modal-footer
+          button.btn.btn-secondary(type='button', data-bs-dismiss='modal') Cancel
+          button.btn.btn-primary(type='submit') Return Asset

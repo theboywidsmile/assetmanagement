@@ -1,0 +1,61 @@
+extends ../layout
+
+block content
+  header.d-flex.justify-content-between.mb-1
+    div 
+        h4.text-uppercase Asset Category Master
+    a.btn.btn-primary(type='button', data-bs-toggle='modal', data-bs-target='#categoryModal', data-mode='add') +
+
+  table.table.table-bordered.table-striped.datatable
+    thead
+      tr
+        th ID
+        th Name
+        th Description
+        th(width=100).text-center Actions
+    tbody
+      if categories && categories.length > 0
+        each category in categories
+          tr.align-middle
+            td= category.id
+            td= category.name
+            td= category.description
+            td.text-center 
+              div.btn-group
+                button.btn.btn-sm.btn-warning(
+                  type='button',
+                  data-bs-toggle='modal',
+                  data-bs-target='#categoryModal',
+                  data-mode='edit',
+                  data-id=category.id,
+                  data-name=category.name,
+                  data-description=category.description
+                ) Edit
+      else 
+        tr
+          td(colspan='4', class='text-center') No categories found.
+
+  include ./categories-modal
+
+  script.
+    const categoryModal = document.getElementById('categoryModal');
+    const categoryForm = document.getElementById('categoryForm');
+
+    categoryModal.addEventListener('show.bs.modal', function (event) {
+      const button = event.relatedTarget;
+      const mode = button.getAttribute('data-mode');
+
+      const id = button.getAttribute('data-id') || '';
+      const name = button.getAttribute('data-name') || '';
+      const description = button.getAttribute('data-description') || '';
+
+      if (mode === 'edit') {
+        categoryForm.action = `/categories/edit/${id}`;
+        document.getElementById('catId').value = id;
+        document.getElementById('catName').value = name;
+        document.getElementById('catDescription').value = description;
+      } else {
+        categoryForm.action = '/categories/add';
+        categoryForm.reset();
+      }
+    });

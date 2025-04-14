@@ -1,0 +1,39 @@
+extends ../layout
+
+block content
+  header.d-flex.justify-content-between.mb-1
+    div 
+        h4.text-uppercase Issued Asset
+    button.btn.btn-primary(type='button', data-bs-toggle='modal', data-bs-target='#issueModal', disabled=assets.length === 0) + Issue Asset
+  table#issueTable.table.table-bordered.table-striped
+    thead
+      tr
+        th ID
+        th Asset Name
+        th Issued To
+        th Date
+    tbody
+      if issuedAssets && issuedAssets.length > 0
+        each issued in issuedAssets
+          tr.align-middle
+            td= issued.id
+            td= issued.name ? issued.name : "N/A"
+            td= issued.employee ? issued.employee.name : "N/A"
+            td(width=150)= issued.createdAt ? new Date(issued.createdAt).toLocaleDateString() : "N/A"
+      else
+        tr
+          td(colspan='4', class='text-center') No issued assets found.
+          // Display a message if no issued assets are found
+        each issued in issuedAssets
+          tr
+            td= issued.id
+            td= issued.name
+            td= issued.employee ? issued.employee.name : "N/A"
+            td= issued.issuedAt
+
+  include ./issue-modal
+
+  script.
+    $(document).ready(function() {
+      $('#issueTable').DataTable();
+    });

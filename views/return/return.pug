@@ -1,0 +1,31 @@
+extends ../layout
+
+block content
+  header.d-flex.justify-content-between.mb-1
+    div 
+        h4.text-uppercase Returned Asset
+    button.btn.btn-primary(type='button', data-bs-toggle='modal', data-bs-target='#returnModal',disabled=issuedAssets.length === 0) + Return Asset
+
+  table#returnTable.table.table-bordered.table-striped
+    thead
+      tr
+        th ID
+        th Asset Name
+        th Returned By
+        th Reason
+        th Date
+    tbody
+      each returned in returnedAssets
+        tr
+          td= returned.id
+          td= returned.asset ? returned.asset.name : "N/A"
+          td= returned.employee ? returned.employee.name : "N/A"
+          td= returned.description
+          td(width=150)= returned.actionDate ? new Date(returned.actionDate).toLocaleDateString() : "N/A"
+
+  include ./return-modal
+
+  script.
+    $(document).ready(function() {
+      $('#returnTable').DataTable();
+    });

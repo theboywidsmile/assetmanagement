@@ -1,0 +1,33 @@
+// employee/_employee-modal.pug
+.modal.fade#employeeModal(tabindex='-1', aria-labelledby='employeeModalLabel', aria-hidden='true')
+  .modal-dialog.modal-dialog-centered 
+    .modal-content
+      .modal-header
+        h5.modal-title.text-uppercase#employeeModalLabel Employee Form
+        button.btn-close(type='button', data-bs-dismiss='modal', aria-label='Close')
+      form(method='POST', id='employeeForm')
+        .modal-body
+          input(type='hidden', name='id', id='empId')
+          .mb-3
+            label.form-label(for='empName') Name
+            input.form-control(type='text', name='name', id='empName', required)
+          .mb-3
+            label.form-label(for='empEmail') Email
+            input.form-control(type='email', name='email', id='empEmail', required)
+          .mb-3
+            label.form-label(for='empPhone') Phone
+            input.form-control(type='text', name='phone', id='empPhone', required)
+          .mb-3
+            label.form-label(for='empStatus') Status
+            select.form-select(name='status', id='empStatus', required)
+              option(value='active') Active
+              option(value='inactive') Inactive
+          .mb-3
+            label.form-label(for='empCompany') Company
+            select.form-select(name='companyId', id='empCompany', required)
+              option(value='') -- Select a Company --
+              each company in companies
+                option(value=company.id)= company.name
+        .modal-footer
+          button.btn.btn-secondary(type='button', data-bs-dismiss='modal') Cancel
+          button.btn.btn-primary(type='submit') Save
