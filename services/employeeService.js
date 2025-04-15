@@ -16,7 +16,16 @@ exports.getEmployees = async (search, status) => {
 };
 
 exports.addEmployee = async (employeeData) => {
-  await Employee.create(employeeData);
+  try {
+    const { email, ...rest } = employeeData;
+    const existingEmployee = await Employee.findOne({ where: { email } });
+    if (existingEmployee) {
+      throw new Error(`An employee with the email "${email}" already exists.`);
+    }
+    await Employee.create({ email, ...rest });
+  } catch (error) {
+    throw new Error("Error adding employee");
+  }
 };
 
 exports.editEmployee = async (id, employeeData) => {
