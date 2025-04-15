@@ -1,15 +1,17 @@
-const { Asset, AssetCategory, Employee } = require("../models");
+const { Asset, AssetCategory, Employee, Company } = require("../models");
 
-exports.getAssets = async (search, categoryId) => {
+exports.getAssets = async (search, categoryId, companyId) => {
   try {
     const where = { status: { [require("sequelize").Op.ne]: "scrapped" } };
     if (categoryId) where.categoryId = categoryId;
+    if (companyId) where.companyId = companyId;
     if (search) where.name = { [require("sequelize").Op.iLike]: `%${search}%` };
     const assets = await Asset.findAll({
       where,
       include: [
         { model: AssetCategory, as: "category" },
         { model: Employee, as: "employee" },
+        { model: Company, as: "company" },
       ],
     });
     assets.forEach((asset, index) => {

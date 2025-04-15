@@ -3,9 +3,9 @@ const categoryService = require("../services/categoryService");
 const companyService = require("../services/companyService");
 
 exports.getAssets = async (req, res) => {
-  const { search, type: categoryId } = req.query;
+  const { search, type: categoryId, company: companyId } = req.query;
   try {
-    const assets = await assetService.getAssets(search, categoryId);
+    const assets = await assetService.getAssets(search, categoryId, companyId);
     const categories = await categoryService.getCategories();
     const companies = await companyService.getCompanies();
     res.render("asset/assets", { assets, categories, companies });
