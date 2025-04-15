@@ -8,11 +8,27 @@ exports.getCompanies = async () => {
   return companies;
 };
 
-exports.addOrUpdateCompany = async (companyData) => {
-  if (companyData.id) {
-    await Company.update(companyData, { where: { id: companyData.id } });
-  } else {
-    await Company.create(companyData);
+exports.addCompany = async (companyData) => {
+  try {
+    const { id, ...rest } = companyData;
+    if (id && isNaN(parseInt(id, 10))) {
+      throw new Error(
+        "Invalid input for 'id': must be a valid integer or omitted."
+      );
+    }
+
+    await Company.create(rest);
+  } catch (error) {
+    throw new Error("Error saving company");
+  }
+};
+
+exports.updateCompany = async (companyData) => {
+  const { id, ...data } = companyData;
+  try {
+    await Company.update(data, { where: { id } });
+  } catch (error) {
+    throw new Error("Error updating company");
   }
 };
 

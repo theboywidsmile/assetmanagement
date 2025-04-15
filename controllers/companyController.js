@@ -10,13 +10,23 @@ exports.getCompanies = async (req, res) => {
   }
 };
 
-exports.addOrUpdateCompany = async (req, res) => {
+exports.addCompany = async (req, res) => {
   try {
-    await companyService.addOrUpdateCompany(req.body);
+    await companyService.addCompany(req.body);
     res.redirect("/companies");
   } catch (error) {
-    console.error("Error saving company:", error);
     res.status(500).send("An error occurred while saving the company.");
+  }
+};
+
+exports.updateCompany = async (req, res) => {
+  const { id } = req.params;
+  try {
+    await companyService.updateCompany({ ...req.body, id });
+    res.redirect("/companies");
+  } catch (error) {
+    console.error("Error updating company:", error);
+    res.status(500).send("An error occurred while updating the company.");
   }
 };
 
