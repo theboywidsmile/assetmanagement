@@ -1,12 +1,14 @@
 const assetService = require("../services/assetService");
 const categoryService = require("../services/categoryService");
+const companyService = require("../services/companyService");
 
 exports.getAssets = async (req, res) => {
   const { search, type: categoryId } = req.query;
   try {
     const assets = await assetService.getAssets(search, categoryId);
     const categories = await categoryService.getCategories();
-    res.render("asset/assets", { assets, categories });
+    const companies = await companyService.getCompanies();
+    res.render("asset/assets", { assets, categories, companies });
   } catch (error) {
     console.error("Error fetching assets:", error);
     res.status(500).send("An error occurred while fetching assets.");

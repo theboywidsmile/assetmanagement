@@ -75,6 +75,7 @@ block content
       const status = button.getAttribute('data-status') || 'in_stock';
       const categoryId = button.getAttribute('data-categoryid') || '';
       const employeeId = button.getAttribute('data-employeeid') || '';
+      const companyId = button.getAttribute('data-companyid') || '';
 
       if (mode === 'edit') {
         assetForm.action = `/assets/edit/${id}`;
@@ -87,6 +88,7 @@ block content
         document.getElementById('assetStatus').value = status;
         document.getElementById('assetCategory').value = categoryId;
         document.getElementById('assetEmployee').value = employeeId;
+        document.getElementById('assetCompany').value = companyId;
       } else {
         assetForm.action = '/assets/add';
         assetForm.reset();

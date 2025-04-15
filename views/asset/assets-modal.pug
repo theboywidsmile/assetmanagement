@@ -33,6 +33,11 @@
             select.form-select(name='categoryId', id='assetCategory', required)
               each category in categories
                 option(value=category.id)= category.name
+          .mb-3
+            label.form-label(for='assetCategory') Company
+            select.form-select(name='categoryId', id='assetCategory', required)
+              each _company in companies
+                option(value=_company.id)= _company.name
         .modal-footer
           button.btn.btn-secondary(type='button', data-bs-dismiss='modal') Cancel
           button.btn.btn-primary(type='submit') Save

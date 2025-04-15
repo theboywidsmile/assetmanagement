@@ -5,8 +5,8 @@ module.exports = {
   async up(queryInterface, Sequelize) {
     await queryInterface.bulkInsert("AssetHistories", [
       {
-        assetId: 2, // Samsung Galaxy S22
-        employeeId: 1, // Elon Musk
+        assetId: 2,
+        employeeId: 1,
         action: "issued",
         reason: "For testing new app features",
         description: "Issued to Elon Musk for app testing",
@@ -15,8 +15,8 @@ module.exports = {
         updatedAt: new Date(),
       },
       {
-        assetId: 1, // MacBook Pro 16
-        employeeId: null,
+        assetId: 1,
+        employeeId: 2,
         action: "returned",
         reason: "No longer needed",
         description: "Returned to inventory",

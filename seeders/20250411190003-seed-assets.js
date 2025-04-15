@@ -11,8 +11,8 @@ module.exports = {
         model: "MacBook Pro 16-inch",
         value: 2500.0,
         status: "in_stock",
-        categoryId: 1, // Desktop Computer
-        employeeId: null,
+        categoryId: 1,
+        employeeId: 2,
         createdAt: new Date(),
         updatedAt: new Date(),
       },
@@ -23,8 +23,8 @@ module.exports = {
         model: "Galaxy S22",
         value: 1200.0,
         status: "issued",
-        categoryId: 2, // Smartphone
-        employeeId: 1, // Elon Musk
+        categoryId: 2,
+        employeeId: 1,
         createdAt: new Date(),
         updatedAt: new Date(),
       },
