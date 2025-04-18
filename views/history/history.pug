@@ -17,8 +17,8 @@ block content
           td= record.asset ? record.asset.name : "N/A"
           td
             span.text-uppercase.badge(class=record.action === 'issued' ? 'bg-success' : 'bg-danger')= record.action
-          td= record.description || "No description available" 
-          td= record.actionDate ? new Date(record.actionDate).toLocaleDateString() : "N/A"
+          td= record.description || record.reason|| "No description available" 
+          td= record.createdAt ? new Date(record.createdAt).toLocaleDateString() : "N/A"
   script.
     $(document).ready(function() {
       $('#historyTable').DataTable({
