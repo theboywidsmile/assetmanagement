@@ -25,6 +25,7 @@ exports.addAsset = async (req, res) => {
     value,
     status,
     categoryId,
+    companyId,
   } = req.body;
   try {
     await assetService.addAsset({
@@ -36,6 +37,7 @@ exports.addAsset = async (req, res) => {
       value,
       status,
       categoryId,
+      companyId,
     });
     res.redirect("/assets");
   } catch (error) {
@@ -47,7 +49,8 @@ exports.addAsset = async (req, res) => {
 exports.getAddAsset = async (req, res) => {
   try {
     const categories = await categoryService.getCategories();
-    res.render("asset/assets", { categories });
+    const companies = await companyService.getCompanies();
+    res.render("asset/assets-modal", { categories, companies });
   } catch (error) {
     console.error("Error fetching categories:", error);
     res.status(500).send("An error occurred while fetching categories.");
@@ -59,10 +62,11 @@ exports.getEditAsset = async (req, res) => {
   try {
     const asset = await assetService.getAssetById(id);
     const categories = await categoryService.getCategories();
+    const companies = await companyService.getCompanies();
     if (!asset) {
       return res.status(404).send("Asset not found");
     }
-    res.render("asset/assets", { asset, categories });
+    res.render("asset/assets-modal", { asset, categories, companies });
   } catch (error) {
     console.error("Error fetching asset:", error);
     res.status(500).send("An error occurred while fetching the asset.");
@@ -80,6 +84,7 @@ exports.editAsset = async (req, res) => {
     value,
     status,
     categoryId,
+    companyId,
   } = req.body;
   try {
     await assetService.editAsset(id, {
@@ -91,6 +96,7 @@ exports.editAsset = async (req, res) => {
       value,
       status,
       categoryId,
+      companyId,
     });
     res.redirect("/assets");
   } catch (error) {

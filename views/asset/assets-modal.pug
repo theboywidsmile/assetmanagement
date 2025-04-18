@@ -36,8 +36,12 @@
           .mb-3
             label.form-label(for='company') Company
             select.form-select(name='companyId', id='company', required)
-              each _company in companies
-                option(value=_company.id)= _company.name
+              if companies
+                each _company in companies
+                  option(value=_company.id)= _company.name
+              else
+                option(disabled selected) No companies available
+                
         .modal-footer
           button.btn.btn-secondary(type='button', data-bs-dismiss='modal') Cancel
           button.btn.btn-primary(type='submit') Save
