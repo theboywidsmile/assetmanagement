@@ -34,8 +34,8 @@
               each category in categories
                 option(value=category.id)= category.name
           .mb-3
-            label.form-label(for='assetCategory') Company
-            select.form-select(name='categoryId', id='assetCategory', required)
+            label.form-label(for='company') Company
+            select.form-select(name='companyId', id='company', required)
               each _company in companies
                 option(value=_company.id)= _company.name
         .modal-footer
